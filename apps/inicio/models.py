@@ -7,6 +7,7 @@ class Medico(models.Model):
     nombres      = models.CharField(max_length=50)
     apellidos    = models.CharField(max_length=50)
     telefono    = models.IntegerField()
+<<<<<<< HEAD
     identificacion = models.IntegerField(unique=True)
     correo = models.EmailField(unique=True, max_length=80)
     def __str__(self):
@@ -17,6 +18,12 @@ class Medico(models.Model):
 class GrupoFamiliar(models.Model):
     nombre = models.CharField(max_length=250)
     medico_cabecera = models.ForeignKey(Medico, on_delete=models.PROTECT)
+=======
+    fecha_nacimineto = models.DateField()
+    tipo = [('Medico', 'Paciente',)]
+    rol        = models.CharField(max_length=8, choices=tipo, default='Paciente')
+    user       = models.OneToOneField(User, on_delete=models.CASCADE)
+>>>>>>> ccd8ac8ad9f84a23c560886ea5c2e4b6f2981dae
 
     def __str__(self):
         return self.nombre
