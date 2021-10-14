@@ -33,6 +33,7 @@ class OrdenMedica(models.Model):
     fecha  = models.DateTimeField(auto_now_add=True)
 
 class Especialista(models.Model):
+    nombre = models.
     
 
 class Remisiones(models.Model):
