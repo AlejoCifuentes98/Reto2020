@@ -1,4 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate, logout
+from django.contrib import messages
+from .models import *
+from .forms import *
+
 
 def inicio_view(request):
     return render(request,'inicio/inicio.html', locals())
@@ -8,7 +13,19 @@ def inicio_medico_view(request):
     return render(request,'inicio/inicio_medico.html', locals())
 
 def login_view(request):
-
+    if request.method == 'POST':
+        form_l = login_form(request.POST)
+        if form_l.is_valid():
+            ema = form_l.cleaned_data['email']
+            pas = form_l.cleaned_data['password']
+            usuario = authenticate(email=ema, password=pas)
+            if usuario is not None and usuario.is_active():
+                login(request, usuario)
+                return redirect('inicio')
+            else:
+                messages.error(request, "Error en el Email o Contraseña")
+    else:
+        form_l = login_form()
     return render(request,'inicio/login.html', locals())
 
 def registro_view(request):

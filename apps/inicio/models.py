@@ -8,8 +8,8 @@ class Usuario(models.Model):
     apellidos    = models.CharField(max_length=250)
     telefono    = models.IntegerField()
     fecha_nacimineto = models.DateField()
-    tipo = ('Medico, Paciente')
-    rol        = models.charField(max_length=8, choices=tipo, default='Paciente')
+    tipo = [('Medico', 'Paciente',)]
+    rol        = models.CharField(max_length=8, choices=tipo, default='Paciente')
     user       = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):

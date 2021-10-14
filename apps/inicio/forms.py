@@ -1,11 +1,11 @@
-from django.forms import forms
+from django import forms
 from .models import *
 
 class login_form(forms.Form):
-    email = forms.EmailField(label="Correo", widget=forms.TextInput(attrs={}))
-    password = forms.PasswordField(label="Contraseña", widget=forms.PasswordInput(render_value=False))
+    email = forms.EmailField(label="Correo", widget=forms.TextInput)
+    password = forms.CharField(label="Contraseña", widget=forms.PasswordInput(render_value=False))
 
-class usuario_form(froms.ModelForm):
+class usuario_form(forms.ModelForm):
     model = Usuario
     field = '__all__'
     exclude = ['']
