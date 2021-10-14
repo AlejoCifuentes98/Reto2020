@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import inicio_view, inicio_medico_view, login_view, registro_view, registro_medico_view, logout_view, reportar_sintomas_view, cambiar_medico_view, historial_view, paciente_detalle_view, generar_orden_view, generar_orden_medico_view, remitir_paciente_view
+from .views import inicio_view, inicio_medico_view, login_view, registro_view, registro_medico_view, logout_view, reportar_sintomas_view, cambiar_medico_view, historial_view, paciente_detalle_view, generar_orden_view, remitir_paciente_view
 
 urlpatterns = [
     #Home para pacientes y medicos
