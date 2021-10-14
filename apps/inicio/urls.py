@@ -6,11 +6,7 @@ urlpatterns = [
     path('',inicio_view, name='inicio'),
     path('inicio/medico',inicio_medico_view, name='inicio_medico'),
     
-    #Autencicación de usuarios
-    path('login/',login_view, name='login'),
-    path('registro/',registro_view, name='registro'),
-    path('regis/tro_medico/',registro_medico_view, name='registro_medico'),
-    path('logout/',logout_view, name='logout'),
+  
     
     #sección de pacientes
     path('reportar_sintomas/',reportar_sintomas_view, name='reportar_sintomas'),
