@@ -4,12 +4,17 @@ def inicio_view(request):
     return render(request,'inicio/inicio.html', locals())
 
 def inicio_medico_view(request):
+    
     return render(request,'inicio/inicio_medico.html', locals())
 
 def login_view(request):
+
     return render(request,'inicio/login.html', locals())
 
 def registro_view(request):
+    return render(request,'inicio/registro.html', locals())
+
+def registro_medico_view(request):
     return render(request,'inicio/registro.html', locals())
 
 def logout_view(request):
