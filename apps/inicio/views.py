@@ -12,6 +12,9 @@ def login_view(request):
 def registro_view(request):
     return render(request,'inicio/registro.html', locals())
 
+def registro_medico_view(request):
+    return render(request,'inicio/registro.html', locals())
+
 def logout_view(request):
     return render(request,'inicio/logout.html', locals())
 
