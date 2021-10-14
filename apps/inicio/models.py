@@ -3,14 +3,19 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Usuario(models.Model):
-    nombres      = models.CharField(max_length=250)
-    apellidos    = models.CharField(max_length=250)
+class Paciente(models.Model):
+    nombres      = models.CharField(max_length=50)
+    apellidos    = models.CharField(max_length=50)
     telefono    = models.IntegerField()
     fecha_nacimineto = models.DateField()
-    tipo = ('Medico, Paciente')
-    rol        = models.charField(max_length=8, choices=tipo, default='Paciente')
-    user       = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nombre
+class Medico(models.Model):
+    nombres      = models.CharField(max_length=50)
+    apellidos    = models.CharField(max_length=50)
+    telefono    = models.IntegerField()
+    fecha_nacimineto = models.DateField()
 
     def __str__(self):
         return self.nombre
