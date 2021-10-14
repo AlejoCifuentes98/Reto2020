@@ -49,6 +49,7 @@ class Especialista(models.Model):
 class Remisiones(models.Model):
     especialista = models.ForeignKey(Especialista, on_delete=models.PROTECT)
     nota_medica  = models.TextField()
+    medico       = models.ForeignKey(Usuario, on_delete=models.PROTECT)
 
     def __str__(self):
         return "Remitido a {}".format(self.especialista)
