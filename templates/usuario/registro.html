@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 
+{% block title %}Registro | {% endblock title %}
+    
 {% block content %}
     <form action="" method="POST">
         {% csrf_token %}
+        {{form_p.as_p}}
         {{form_u.as_p}}
-        {{form_u.as_u}}
         <input type="submit" value="Registrar">
     </form>
 {% endblock content %}

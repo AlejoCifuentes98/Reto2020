@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
-
+{% block title %}Registro Medico | {% endblock title %}
 {% block content %}
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{form_u.as_m}}
-        {{form_u.as_u}}
-        <input type="submit" value="Registrar">
-    </form>
+<div class="row">
+    <did class="col-6">
+        <form action="." method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form_m.as_p }}
+            {{ form_u.as_p }}
+            <input type="submit" value="Registrar">
+        </form> 
+    </did>
+</div>
+   
 {% endblock content %}
     

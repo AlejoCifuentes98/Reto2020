@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Seleccionar | {% endblock title %}
+
+{% block content %}
+    
+    <ul class="list-group">
+        {% for obj in object%}
+        <li class="list-group-item"><a href="{% url 'familia' id_medico=obj.id %}">{{obj.nombres}} {{obj.apellidos}}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock content %}
+    

@@ -30,20 +30,25 @@ class register_form(forms.Form):
 
 
 class register_grupo_form(forms.ModelForm):
-    model = Paciente
-    field = '__all__'
-    exclude =['telefono, usuario, direccion']
+    class Meta:
+        model = Paciente
+        field = '__all__'
+        exclude =['telefono, usuario, direccion']
+        email = forms.EmailField(label="Correo", widget=forms.TextInput)
+
 
 class medico_form(forms.ModelForm):
-    model = Medico
-    field = '__all__'
-    exclude = ['usuario']
-    email = forms.EmailField(label="Correo", widget=forms.TextInput)
-
+    class Meta:
+        model = Medico
+        field = '__all__'
+        exclude = ['usuario']
+    
 class buscar_form(forms.Form):
     numero = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder':'Número de identificacion'}) )
 
 class paciente_form(forms.ModelForm):
-    model = Paciente
-    field = '__all__'
-    exclude = ['usuario']
+    class Meta:
+        model = Paciente
+        field = '__all__'
+        exclude = ['usuario']
+    check = forms.BooleanField(label="Crear grupo familiar", widget=forms.CheckboxInput)

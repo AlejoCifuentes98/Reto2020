@@ -15,7 +15,7 @@ class Medico(models.Model):
     usuario        = models.ForeignKey(User, on_delete=models.CASCADE)
     especialidad   = models.ForeignKey(Especialidad, on_delete=models.PROTECT)
     def __str__(self):
-        return self.nombre+''+self.apellidos
+        return self.nombres+''+self.apellidos
     
 
 class Paciente(models.Model):
