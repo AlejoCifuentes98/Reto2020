@@ -16,9 +16,6 @@ class Medico(models.Model):
     especialidad = models.ForeignKey(Especialidad, on_delete=models.PROTECT)
     def __str__(self):
         return self.nombre+''+self.apellidos
-               
-
-
     
 class Paciente(models.Model):
     nombres      = models.CharField(max_length=50)
