@@ -8,7 +8,7 @@ from .forms import *
 def inicio_view(request):
     paciente = Paciente.objects.get(id=request.user.id)
     atención = AtencionMedica.objects.filter(paciente=paciente)
-    
+    medico = GrupoFamiliar.objects.get(paciente=paciente)
     return render(request,'inicio/inicio.html', locals())
 
 def inicio_medico_view(request):

@@ -11,9 +11,9 @@
             <p><strong>Telefono:</strong>{{ paciente.telefono }}</p>
             <p><strong>Correo electrónico:</strong>{{ paciente.correo }}</p>
             <div class="d-grid gap-2 d-md-block">
-               <a type="button"  class="btn btn-primary" href="#" >Reportes</a>
-               <a type="button"  class="btn btn-primary" href="#" >Documentos</a>
-               <a type="button"  class="btn btn-primary" href="#" >Cambiar medico</a>
+                <a type="button" class="btn btn-primary" href="#">Reportes</a>
+                <a type="button" class="btn btn-primary" href="#">Documentos</a>
+                <a type="button" class="btn btn-primary" href="#">Cambiar medico</a>
             </div>
         </div>
 
@@ -24,28 +24,34 @@
         <h3>Historial de atenciones</h3>
         <table class="table table-bordered">
             <thead>
-              <tr>
-                <th scope="col">fecha</th>
-                <th scope="col">Descripción de la atención</th>
-                <th scope="col">Medico</th>
-                
+                <tr>
+                    <th scope="col">fecha</th>
+                    <th scope="col">Descripción de la atención</th>
+                    <th scope="col">Medico</th>
 
-                <th scope="col">Detalles</th>
-              </tr>
+
+                    <th scope="col">Detalles</th>
+                </tr>
             </thead>
-            
+
             <tbody>
-              
-              {% for i in atencion %}
-              <tr>
-                  <th scope="row">{{ i.fecha_atencion }}</th>
-                  <td>{{ i.descripcion }}</td>
-                  <td>{{ i.paciente }}</td>
-                  <td>@mdo</td>
+
+                {% if atencion %}
+
+
+                {% for i in atencion %}
+                <tr>
+                    <th scope="row">{{ i.fecha_atencion }}</th>
+                    <td>{{ i.descripcion }}</td>
+                    <td>{{ i.paciente }}</td>
+                    <td>@mdo</td>
                 </tr>
                 {% endfor %}
+                {% else %}
+                <h3>No existen registros en el momento</h3>
+                {% endif %}
             </tbody>
-          </table>
+        </table>
     </div>
 
 </div>
