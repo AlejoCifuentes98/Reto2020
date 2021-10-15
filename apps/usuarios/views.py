@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from .forms import register_form, paciente_form, medico_form
-from .models import Medico, Paciente
+from .forms import register_form, paciente_form, medico_form, login_form, buscar_form, register_grupo_form
+from .models import Medico, Paciente, GrupoFamiliar
 # Create your views here.
 def login_view(request):
     if request.method == 'POST':
@@ -31,7 +32,7 @@ def registro_view(request):
             u = User.objects.create_user(username=ema, password=pas)
             p=form_p.save(commit=False)
             u.save()
-            p.user=u
+            p.usuario=u
             p.save()
 
             return redirect('/inicio/')
@@ -47,10 +48,10 @@ def registro_medico_view(request):
             pas = form_u.cleaned_data['password']
 
             u = User.objects.create_user(username=ema, password=pas)
-            p=form_m.save(commit=False)
+            m=form_m.save(commit=False)
             u.save()
-            p.user=u
-            p.save()
+            m.usuario=u
+            m.save()
 
             return redirect('/inicio/')
     return render(request,'inicio/registro.html', locals())
@@ -59,3 +60,51 @@ def registro_medico_view(request):
 def logout_view(request):
     logout(request)
     return redirect('inicio')
+
+def grupo_familiar_view(request):
+    usuario = User.objects.get(id = request.user.id)
+    objects = GrupoFamiliar.objects.filter(id_titular = usuario)
+   
+
+    if request.method == 'GET':
+        form_b = buscar_form(request.GET)
+        if form_b.is_valid():
+            num = form_b.cleaned_data['numero']
+            buscar = Paciente.objects.get(identificacion = num)
+            if buscar:
+                buscar
+            else:
+                messages.error(request, "Afiliado no encontrado")
+
+def crear_en_grupo_familiar_view(request):
+    usuario = User.objects.get(id = request.user.id)
+    object  = GrupoFamiliar.objects.get(id_titular= usuario)
+    if request.method == 'POST':
+        form_a = register_grupo_form(request.POST)
+        if form_a.is_valid():
+            ide = form_a.cleaned_data['identificacion']
+            ema = form_a.cleaned_data['email']
+            u = User.objects.create_user(username=ema, password=ide)
+            a = form_a.save(commit=False)
+            u.save()
+            a.usuario=u
+            a.telefono=usuario.paciente.telefono
+            a.direcion=usuario.paciente.direccion
+            a.save()
+            GrupoFamiliar.objects.create(id_persona=a, id_titular=usuario.id, id_medico=object.id_medico)
+            
+            return redirect('')
+    else:
+        form_a= register_grupo_form()
+
+    return render(request, 'grupo')
+
+def add_grupo_familiar_view(request, id_afiliado):
+    afiliado = Paciente.objects.get(id=id_afiliado)
+    GrupoFamiliar
+
+            
+
+
+
+
