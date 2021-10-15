@@ -21,7 +21,7 @@ def inicio_medico_view(request):
 def reportar_sintomas_view(request):
     if request.method == 'POST':
         form_r = reportar_sintomas_form(request.POST)
-        
+
     return render(request,'inicio/reportar_sintomas.html', locals())
 
 def cambiar_medico_view(request):
@@ -36,12 +36,28 @@ def paciente_detalle_view(request, id_paciente):
     return render(request,'inicio/paciente_detalle.html', locals())
 
 def generar_orden_view(request):
+    if request.method == 'POST':
+        form_o = orden_form(request.POST)
+        if form_o.is_valid():
+            form_o.save()
+    else:
+        form_o = orden_form()
     return render(request,'inicio/generar_orden.html', locals())
 
 def editar_orden_view(request, id_orden):
+    orden = OrdenMedica.object.get(id =id_orden)
+    if request.method == 'POST':
+        form_o = orden_form(request.POST, instance=orden)
+        if form_o.is_valid():
+            form_o.save()
+            return redirect()
+    else:
+        form_o = orden_form(instance=orden)
     return render(request,'inicio/editar_orden.html', locals())
 
 def eliminar_orden_view(request,id_orden):
+    orden = OrdenMedica.object.get(id = id_orden)
+    orden.delete()
     return render(request,'inicio/eliminar_orden.html', locals())
 
 def remitir_paciente_view(request, id_paciente):
