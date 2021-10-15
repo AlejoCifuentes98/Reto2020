@@ -12,8 +12,8 @@ class Medico(models.Model):
     apellidos      = models.CharField(max_length=50)
     telefono       = models.IntegerField()
     identificacion = models.IntegerField(unique=True)
-    usuario          = models.ForeignKey(User, on_delete=models.CASCADE)
-    especialidad = models.ForeignKey(Especialidad, on_delete=models.PROTECT)
+    usuario        = models.ForeignKey(User, on_delete=models.CASCADE)
+    especialidad   = models.ForeignKey(Especialidad, on_delete=models.PROTECT)
     def __str__(self):
         return self.nombre+''+self.apellidos
     

@@ -19,6 +19,9 @@ def inicio_medico_view(request):
 
 
 def reportar_sintomas_view(request):
+    if request.method == 'POST':
+        form_r = reportar_sintomas_form(request.POST)
+        
     return render(request,'inicio/reportar_sintomas.html', locals())
 
 def cambiar_medico_view(request):
