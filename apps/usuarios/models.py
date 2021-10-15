@@ -19,12 +19,6 @@ class Medico(models.Model):
                
 
 
-class GrupoFamiliar(models.Model):
-    nombre = models.CharField(max_length=250)
-    medico_cabecera = models.ForeignKey(Medico, on_delete=models.PROTECT)
-
-    def __str__(self):
-        return self.nombre
     
 class Paciente(models.Model):
     nombres      = models.CharField(max_length=50)
@@ -33,7 +27,15 @@ class Paciente(models.Model):
     telefono    = models.IntegerField()
     correo = models.EmailField(unique=True, max_length=80)
     fecha_nacimineto = models.DateField()
-    grupo_familiar= models.ForeignKey(GrupoFamiliar, on_delete=models.PROTECT)
+    
 
     def __str__(self):
         return self.nombres+''+self.apellidos+''+str(self.identificacion)
+
+class GrupoFamiliar(models.Model):
+    titular = models.IntegerField()
+    paciente = models.ForeignKey(Paciente, on_delete=models.PROTECT)
+    medico_cabecera = models.ForeignKey(Medico, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return str(self.titular)
