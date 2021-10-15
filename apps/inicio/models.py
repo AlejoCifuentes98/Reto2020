@@ -5,23 +5,18 @@ from apps.usuarios.models import Medico, Paciente
 # Create your models here.
 
 
-class Historia(models.Model):
-    fecha_creacion= models.DateField(auto_now_add=True)
-    observaciones = models.TextField(max_length=500)
-    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
-
 
 class AtencionMedica(models.Model):
     fecha_atencion= models.DateTimeField(auto_now_add=True)
     descripcion = models.TextField(max_length=500)
-    historia = models.ForeignKey(Historia, on_delete=models.CASCADE)
+    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
+    
 
 class Mensaje(models.Model):
     mensaje = models.TextField()
     hora    = models.DateField(auto_now_add=True)
-    historia = models.ForeignKey(Historia, on_delete=models.PROTECT)
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    atencion = models.ForeignKey(AtencionMedica, on_delete=models.PROTECT)
+    
     def __str__(self):
         return self.mensaje
 

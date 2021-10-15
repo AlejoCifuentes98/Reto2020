@@ -1,4 +1,6 @@
 from django import forms
+
+from apps.usuarios.models import Especialidad
 from .models import *
 
 
@@ -13,8 +15,8 @@ class orden_form(forms.ModelForm):
     field = '__all__'
     exclude = ['medico']
 
-class especialista_form(forms.ModelForm):
-    model = Especialista
+class especialidad_form(forms.ModelForm):
+    model = Especialidad
     field = '__all__'
     exclude = ['']
 
