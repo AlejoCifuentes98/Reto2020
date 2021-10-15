@@ -3,7 +3,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .forms import register_form, paciente_form, medico_form, login_form, buscar_form, register_grupo_form
-from .models import Paciente, GrupoFamiliar
+from .models import Paciente, GrupoFamiliar, Medico
+import random
 # Create your views here.
 def login_view(request):
     if request.method == 'POST':
@@ -22,6 +23,8 @@ def login_view(request):
     return render(request,'inicio/login.html', locals())
 
 def registro_view(request):
+    numero = Medico.objects.filter(especialidad = "General").count()
+    n = random.randint(1,numero)
     if request.method == 'POST':
         form_u = register_form(request.POST)
         form_p = paciente_form(request.POST)
@@ -34,6 +37,7 @@ def registro_view(request):
             u.save()
             p.usuario=u
             p.save()
+            GrupoFamiliar.objects.create(paciente=p, titular=p, medico_cabecera=n)
 
             return redirect('/inicio/')
 
@@ -91,7 +95,7 @@ def crear_en_grupo_familiar_view(request):
             a.telefono=usuario.paciente.telefono
             a.direcion=usuario.paciente.direccion
             a.save()
-            GrupoFamiliar.objects.create(paciente=a, titular=usuario.id, medico_cabecera=object.id_medico)
+            GrupoFamiliar.objects.create(paciente=a, titular=usuario.id, medico_cabecera=object.medico_cabecera)
             
             return redirect('')
     else:
