@@ -41,7 +41,7 @@ class medico_form(forms.ModelForm):
     email = forms.EmailField(label="Correo", widget=forms.TextInput)
 
 class buscar_form(forms.Form):
-    numero = forms.IntegerField(widget=forms.NumberInput, placeholder='Número de identificacion')
+    numero = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder':'Número de identificacion'}) )
 
 class paciente_form(forms.ModelForm):
     model = Paciente
