@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .forms import register_form, paciente_form, medico_form, login_form, buscar_form, register_grupo_form
-from .models import Medico, Paciente, GrupoFamiliar
+from .models import Paciente, GrupoFamiliar
 # Create your views here.
 def login_view(request):
     if request.method == 'POST':
