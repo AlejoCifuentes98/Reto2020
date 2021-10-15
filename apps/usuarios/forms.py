@@ -3,8 +3,8 @@ from .models import Medico, Paciente
 from django.contrib.auth.models import User
 
 class login_form(forms.Form):
-    email = forms.EmailField(label="Correo", widget=forms.TextInput)
-    password = forms.CharField(label="Contraseña", widget=forms.PasswordInput(render_value=False))
+    email = forms.EmailField(label='Correo', widget=forms.TextInput)
+    password = forms.CharField(label='Contraseña', widget=forms.PasswordInput(render_value=False))
 
 class register_form(forms.Form):
     email = forms.EmailField(label="Correo", widget=forms.TextInput)

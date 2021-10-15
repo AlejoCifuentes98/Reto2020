@@ -3,9 +3,6 @@ from django import forms
 from apps.usuarios.models import Especialidad
 from .models import *
 
-class reportar_sintomas_form(forms.Form):
-    reporte = forms.Textarea(label="Reportar Sintomas", widget= forms.TextInput,attrs={"placeholder":"Describe claramente tus sintomas y signos vitales al medico"})
-
 class mensaje_form(forms.ModelForm):
     model = Mensaje
     field = '__all__'

@@ -20,7 +20,7 @@ def login_view(request):
                 messages.error(request, "Error en el Email o Contraseña")
     else:
         form_l = login_form()
-    return render(request,'inicio/login.html', locals())
+    return render(request,'usuario/login.html', locals())
 
 def registro_view(request):
     numero = Medico.objects.filter(especialidad = "General").count()
@@ -41,7 +41,7 @@ def registro_view(request):
 
             return redirect('/inicio/')
 
-    return render(request,'inicio/registro.html', locals())
+    return render(request,'usuario/registro.html', locals())
 
 def registro_medico_view(request):
     if request.method == 'POST':
@@ -58,7 +58,7 @@ def registro_medico_view(request):
             m.save()
 
             return redirect('/inicio/')
-    return render(request,'inicio/registro.html', locals())
+    return render(request,'usuario/registro_medico.html', locals())
 
 
 def logout_view(request):
@@ -103,6 +103,8 @@ def crear_en_grupo_familiar_view(request):
 
     return render(request, 'grupo')
 
+#Añadir a alguien a mi grupo familiar
+#Funsion pensada para un boton
 def add_grupo_familiar_view(request, id_afiliado):
     usuario = User.objects.get(id = request.user.id)
     object  = GrupoFamiliar.objects.get(titular= usuario)
