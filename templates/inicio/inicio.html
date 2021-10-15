@@ -1,6 +1,56 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    
+<div class="row">
+    <div class="col">
+        <div class="container">
+            <h1> Información del paciente:</h1>
+            <p><strong>Nombres:</strong>{{ paciente.nombres }}</p>
+            <p><strong>Apellidos:</strong>{{ paciente.apellidos }}</p>
+            <p><strong>Identificación:</strong>{{ paciente.identificacion }}</p>
+            <p><strong>Telefono:</strong>{{ paciente.telefono }}</p>
+            <p><strong>Correo electrónico:</strong>{{ paciente.correo }}</p>
+            <div class="d-grid gap-2 d-md-block">
+               <a type="button"  class="btn btn-primary" href="#" >Reportes</a>
+               <a type="button"  class="btn btn-primary" href="#" >Documentos</a>
+               <a type="button"  class="btn btn-primary" href="#" >Cambiar medico</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <h3>Historial de atenciones</h3>
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">fecha</th>
+                <th scope="col">Descripción de la atención</th>
+                <th scope="col">Medico</th>
+                
+
+                <th scope="col">Detalles</th>
+              </tr>
+            </thead>
+            
+            <tbody>
+              
+              {% for i in atencion %}
+              <tr>
+                  <th scope="row">{{ i.fecha_atencion }}</th>
+                  <td>{{ i.descripcion }}</td>
+                  <td>{{ i.paciente }}</td>
+                  <td>@mdo</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+    </div>
+
+</div>
+
+
+
+</table>
 {% endblock content %}
-    

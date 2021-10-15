@@ -78,7 +78,7 @@ def grupo_familiar_view(request):
 
 def crear_en_grupo_familiar_view(request):
     usuario = User.objects.get(id = request.user.id)
-    object  = GrupoFamiliar.objects.get(id_titular= usuario)
+    object  = GrupoFamiliar.objects.get(titular= usuario)
     if request.method == 'POST':
         form_a = register_grupo_form(request.POST)
         if form_a.is_valid():
@@ -91,7 +91,7 @@ def crear_en_grupo_familiar_view(request):
             a.telefono=usuario.paciente.telefono
             a.direcion=usuario.paciente.direccion
             a.save()
-            GrupoFamiliar.objects.create(id_persona=a, id_titular=usuario.id, id_medico=object.id_medico)
+            GrupoFamiliar.objects.create(paciente=a, titular=usuario.id, medico_cabecera=object.id_medico)
             
             return redirect('')
     else:
@@ -100,8 +100,12 @@ def crear_en_grupo_familiar_view(request):
     return render(request, 'grupo')
 
 def add_grupo_familiar_view(request, id_afiliado):
-    afiliado = Paciente.objects.get(id=id_afiliado)
-    GrupoFamiliar
+    usuario = User.objects.get(id = request.user.id)
+    object  = GrupoFamiliar.objects.get(titular= usuario)
+   #afiliado = Paciente.objects.get(id=id_afiliado)
+    GrupoFamiliar.objects.create(paciente=id_afiliado, titular=usuario.id, medico_cabecera=object.id)
+    redirect('grupo_familiar')
+    return render(request,'usuario/grupo_familiar.html', locals())
 
             
 

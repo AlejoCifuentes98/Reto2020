@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import inicio_view, inicio_medico_view, login_view, registro_view, registro_medico_view, logout_view, reportar_sintomas_view, cambiar_medico_view, historial_view, paciente_detalle_view, generar_orden_view, remitir_paciente_view
+from .views import inicio_view, inicio_medico_view, reportar_sintomas_view, cambiar_medico_view, historial_view, paciente_detalle_view, generar_orden_view, editar_orden_view,eliminar_orden_view, remitir_paciente_view
 
 urlpatterns = [
     #Home para pacientes y medicos
@@ -14,9 +14,11 @@ urlpatterns = [
     path('historial/',historial_view, name='historial'), #url para ver detalles de las citas del paciente
 
     #sección de  medicos
-    path('paciente/detalle/',paciente_detalle_view, name='paciente_detalle'),
+    path('paciente/detalle/<int:id_paciente>/',paciente_detalle_view, name='paciente_detalle'), 
     path('generar/orden/',generar_orden_view, name='generar_orden'),
-    path('remitir/paciente/',remitir_paciente_view, name='remitir_paciente'),
+    path('editar/orden/<int:id_orden>/',editar_orden_view, name='editar_orden'),
+    path('eliminar/orden/<int:id_orden>/',eliminar_orden_view, name='eliminar_orden'),
+    path('remitir/paciente/<int:id_paciente>',remitir_paciente_view, name='remitir_paciente'),
     
    
 ]
