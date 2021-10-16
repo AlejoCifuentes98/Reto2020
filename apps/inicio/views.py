@@ -81,8 +81,25 @@ def editar_remitir_view(request, id_remitir):
 def eliminar_remitir_view(request, id_remitir):
     remision = Remisiones.objects.get(id=id_remitir)
     remision.delete()
-    redirect("hglg")
+    return redirect("hglg")
 
 def mensajes_view(request, id_atencion):
-    persona = Paciente.objects.get(usuario = request.user.id).exists()
-    persona = Medico.objects.get()
+    nombre = Paciente.objects.get(usuario = request.user.id).exists()
+    nombre = Medico.objects.get(usuario=request.user.id).exists()
+    atencion = AtencionMedica.objects.get(id= id_atencion)
+    mensaje = Mensaje.objects.filter(atencion=id_atencion)
+    if request.method =='POST':
+        form_m = mensaje_form(request.POST)
+        if form_m.is_valid():
+            m = form_m.save(commit=False)
+            m.nombre=nombre
+            m.atencion=atencion
+            m.save()
+    else:
+        form_m = mensaje_form()
+    return render(request,'inicio/mensajes.html', locals())
+
+def eliminar_mensaje_view(request, id_mensaje):
+    mensaje = Mensaje.objects.get(id= id_mensaje)
+    mensaje.delete()
+    return redirect("gfhc")

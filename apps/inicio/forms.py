@@ -6,7 +6,7 @@ from .models import *
 class mensaje_form(forms.ModelForm):
     model = Mensaje
     field = '__all__'
-    exclude = ['usuario']
+    exclude = ['nombre', 'atencion']
 
 class orden_form(forms.ModelForm):
     model = OrdenMedica

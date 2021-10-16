@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}Remitir | {% endblock title %}   
 {% block content %}
-    
+    <form action=""method="POST">
+        {% csrf_token %}
+        {{form_r.as_p}}
+        <input type="submit" value="Remitir">
+    </form>
 {% endblock content %}
     
