@@ -17,7 +17,7 @@ def login_view(request):
             usuario = authenticate(username=ema, password=pas)
             if usuario is not None and usuario.is_active:
                 login(request, usuario)
-                return redirect('/')
+                return redirect('/inicio/')
             else:
                 messages.error(request, "Error en el Email o Contraseña")
     else:
@@ -43,7 +43,7 @@ def registro_view(request):
             if check:
                 return redirect('/registro/selecionar/')
             else:
-                return redirect('/inicio/')
+                return redirect('/')
     else:
         form_u = register_form()
         form_p = paciente_form()
@@ -62,7 +62,7 @@ def registro_medico_view(request):
             u.save()
             m.usuario=u
             m.save()
-            return redirect('/login/')
+            return redirect('/')
     else:
         form_u = register_form()
         form_m = medico_form()
@@ -71,7 +71,7 @@ def registro_medico_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('inicio')
+    return redirect('/')
 
 def selecionar_view(request):
     object = Medico.objects.filter(especialidad__nombre = "General")
@@ -117,7 +117,7 @@ def crear_en_grupo_familiar_view(request):
             a.save()
             GrupoFamiliar.objects.create(paciente=a, titular=usuario.id, medico_cabecera=object.medico_cabecera)
             
-            return redirect('')
+            return redirect('/grupoFamiliar/')
     else:
         form_a= register_grupo_form()
 
@@ -129,7 +129,7 @@ def add_grupo_familiar_view(request, id_afiliado):
     object  = GrupoFamiliar.objects.get(titular= usuario)
    #afiliado = Paciente.objects.get(id=id_afiliado)
     GrupoFamiliar.objects.create(paciente=id_afiliado, titular=usuario.paciente.id, medico_cabecera=object.id)
-    redirect('grupo_familiar')
+    redirect('/grupo_familiar/')
     #return render(request,'usuario/grupo_familiar.html', locals())
 
             

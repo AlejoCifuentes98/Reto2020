@@ -14,7 +14,7 @@ class AtencionMedica(models.Model):
 
 class Mensaje(models.Model):
     mensaje = models.TextField()
-    hora    = models.DateField(auto_now_add=True)
+    hora    = models.DateTimeField(auto_now_add=True)
     nombre  = models.CharField(max_length=160)
     atencion = models.ForeignKey(AtencionMedica, on_delete=models.PROTECT)
     

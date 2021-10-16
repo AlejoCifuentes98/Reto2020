@@ -16,6 +16,9 @@ class Medico(models.Model):
     especialidad   = models.ForeignKey(Especialidad, on_delete=models.PROTECT)
     def __str__(self):
         return self.nombres+''+self.apellidos
+
+    def nombre_completo(self):
+        return self.nombres+' '+self.apellidos
     
 
 class Paciente(models.Model):
@@ -29,6 +32,9 @@ class Paciente(models.Model):
 
     def __str__(self):
         return self.nombres+''+self.apellidos+''+str(self.identificacion)
+
+    def nombre_completo(self):
+        return self.nombres+' '+self.apellidos
 
 
 class GrupoFamiliar(models.Model):

@@ -3,10 +3,10 @@ from .views import inicio_view, inicio_medico_view, cambiar_medico_view, histori
 
 urlpatterns = [
     #Home para pacientes y medicos
-    path('',inicio_view, name='inicio'),
-    path('inicio/medico',inicio_medico_view, name='inicio_medico'),
+    path('inicio/',inicio_view, name='inicio'),
+    path('inicio/medico/',inicio_medico_view, name='inicio_medico'),
     
-    path('mensaje/',mensajes_view, name='mensaje'),
+    path('mensaje/<int:id_atencion>/',mensajes_view, name='mensaje'),
     
     #sección de pacientes
     path('cambiar_medico/',cambiar_medico_view, name='cambiar_medico'),
