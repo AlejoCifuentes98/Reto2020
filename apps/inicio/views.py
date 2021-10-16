@@ -26,11 +26,22 @@ def atencion_agregar_view(request):
         return render(request, 'inicio/atencion_agregar.html', locals())    
     return render(request, 'inicio/atencion_agregar.html', locals())    
 
-def  atencion_editar_view(request):
-    return render(request, 'inicio/atencion_editar.html', locals())
+def  atencion_editar_view(request, id_atencion):
+    atencion = AtencionMedica.object.get(id =id_atencion)
+    if request.method == 'POST':
+        form_atencion = orden_form(request.POST, instance=atencion)
+        if form_atencion.is_valid():
+            form_atencion.save()
+            return redirect()
+    else:
+        form_atencion= orden_form(instance=atencion)
+    return render(request,'inicio/atencion_edirtar.html', locals())
+   
 
-def atencion_eliminar_view(request):
-    return render(request, 'inicio/atencion_eliminar.html', locals())
+def atencion_eliminar_view(request, id_atencion):
+    atencion = OrdenMedica.object.get(id = id_atencion)
+    atencion.delete()
+    return redirect('/')
 
 
 def inicio_medico_view(request):
