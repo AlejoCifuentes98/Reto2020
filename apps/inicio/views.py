@@ -6,23 +6,16 @@ from .forms import *
 
 
 def inicio_view(request):
-    paciente = Paciente.objects.get(id=request.user.id)
-    atención = AtencionMedica.objects.filter(paciente=paciente)
-    medico = GrupoFamiliar.objects.get(paciente=paciente)
+    paciente= Paciente.objects.get(usuario=request.user.id)
+    
+    atenciones = AtencionMedica.objects.filter(paciente= paciente) 
+    #paciente = Paciente.objects.get(usuario=usuario)
+    #medico = GrupoFamiliar.objects.get(paciente=paciente)
     return render(request,'inicio/inicio.html', locals())
 
 def inicio_medico_view(request):
     
     return render(request,'inicio/inicio_medico.html', locals())
-
-
-
-
-def reportar_sintomas_view(request):
-    if request.method == 'POST':
-        form_r = reportar_sintomas_form(request.POST)
-
-    return render(request,'inicio/reportar_sintomas.html', locals())
 
 def cambiar_medico_view(request):
     return render(request,'inicio/cambiar_medico.html', locals())
@@ -60,5 +53,36 @@ def eliminar_orden_view(request,id_orden):
     orden.delete()
     return render(request,'inicio/eliminar_orden.html', locals())
 
-def remitir_paciente_view(request, id_paciente):
+def remitir_paciente_view(request, id_atencion):
+    if request.method == 'POST':
+        form_r = remision_from(request.POST)
+        if form_r.is_valid():
+            r = form_r.save(commit=False)
+            r.atencion = id_atencion
+            r.save()
+            redirect("fgu")
+    else:
+        form_r = remision_from()
+
+
     return render(request,'inicio/remitir_paciente.html', locals())
+
+def editar_remitir_view(request, id_remitir):
+    remision = Remisiones.objects.get(id=id_remitir)
+    if request.method == 'POST':
+        form_r = remision_from(request.POST, instance=remision)
+        if form_r.is_valid():
+            form_r.save()
+            redirect("hih")
+    else:
+        form_r = remision_from(instance=remision)
+    return render(request,'inicio/editar_remision.html', locals())
+
+def eliminar_remitir_view(request, id_remitir):
+    remision = Remisiones.objects.get(id=id_remitir)
+    remision.delete()
+    redirect("hglg")
+
+def mensajes_view(request, id_atencion):
+    persona = Paciente.objects.get(usuario = request.user.id).exists()
+    persona = Medico.objects.get()

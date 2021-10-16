@@ -17,7 +17,7 @@ def login_view(request):
             usuario = authenticate(username=ema, password=pas)
             if usuario is not None and usuario.is_active:
                 login(request, usuario)
-                return redirect('/inicio/')
+                return redirect('/')
             else:
                 messages.error(request, "Error en el Email o Contraseña")
     else:
@@ -80,7 +80,6 @@ def selecionar_view(request):
 def crear_famillia_view(request, id_medico):
     usuario = Paciente.objects.get(usuario = request.user.id)
     medico = Medico.objects.get(id = id_medico)
-    
     GrupoFamiliar.objects.create(titular=usuario.identificacion, paciente=usuario, medico_cabecera=medico)
     return redirect('/inicio/')
 

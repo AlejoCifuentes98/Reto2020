@@ -5,11 +5,12 @@
     <div class="col">
         <div class="container">
             <h1> Información del paciente:</h1>
-            <p><strong>Nombres:</strong>{{ paciente.nombres }}</p>
-            <p><strong>Apellidos:</strong>{{ paciente.apellidos }}</p>
-            <p><strong>Identificación:</strong>{{ paciente.identificacion }}</p>
-            <p><strong>Telefono:</strong>{{ paciente.telefono }}</p>
-            <p><strong>Correo electrónico:</strong>{{ paciente.correo }}</p>
+            <p><strong>Nombres:</strong> {{ paciente.nombres }}</p>
+            <p><strong>Apellidos:</strong> {{ paciente.apellidos }}</p>
+            <p><strong>Identificación:</strong> {{ paciente.identificacion }}</p>
+            <p><strong>Telefono:</strong> {{ paciente.telefono }}</p>
+            <p><strong>Telefono:</strong> {{ paciente.direccion }}</p>
+            <p><strong>Correo electrónico:</strong> {{ paciente.usuario.username }}</p>
             <div class="d-grid gap-2 d-md-block">
                 <a type="button" class="btn btn-primary" href="#">Reportes</a>
                 <a type="button" class="btn btn-primary" href="#">Documentos</a>
@@ -19,44 +20,54 @@
 
     </div>
 </div>
-<div class="row">
+<div class="row mt-4">
     <div class="col">
-        <h3>Historial de atenciones</h3>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th scope="col">fecha</th>
-                    <th scope="col">Descripción de la atención</th>
-                    <th scope="col">Medico</th>
+        <h1>Historial de atenciones</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">fecha y hora</th>
+                        <th scope="col">Descripción de la atención</th>
+                        <th scope="col">Medico</th>
 
 
-                    <th scope="col">Detalles</th>
-                </tr>
-            </thead>
+                        <th scope="col">Detalles</th>
+                    </tr>
+                </thead>
 
-            <tbody>
+                {% if atenciones %}
+                <tbody>
 
-                {% if atencion %}
+
+                    {% for i in atenciones %}
+
+                    <tr>
+                        <th scope="row">{{ i.fecha_atencion }}</th>
+                        <td>{{ i.descripcion }}</td>
+                        <td>{{ i.descripcion }}</td>
+                        <td> </td>
+                        <td><a typpe="button" class="btn btn-primary" href="{% url 'historial' id_atencion=i.id %}"></a></td>
 
 
-                {% for i in atencion %}
-                <tr>
-                    <th scope="row">{{ i.fecha_atencion }}</th>
-                    <td>{{ i.descripcion }}</td>
-                    <td>{{ i.paciente }}</td>
-                    <td>@mdo</td>
-                </tr>
-                {% endfor %}
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
                 {% else %}
-                <h3>No existen registros en el momento</h3>
+                <div class="row">
+                    <div class="col justify-content-center">
+                        <br>
+                        <br>
+                        <h3>No existen registros en el momento</h3>
+                    </div>
+                </div>
                 {% endif %}
-            </tbody>
-        </table>
+            </table>
     </div>
 
 </div>
 
 
 
-</table>
+
 {% endblock content %}

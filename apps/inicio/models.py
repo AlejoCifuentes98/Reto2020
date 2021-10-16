@@ -32,6 +32,7 @@ class OrdenMedica(models.Model):
 
 class Remisiones(models.Model):
     medico = models.CharField(max_length=50)
+    descripción = models.TextField()
     atencion = models.ForeignKey(AtencionMedica, on_delete=models.CASCADE)
     def __str__(self):
         return "Remitido a {}".format(self.medico)
