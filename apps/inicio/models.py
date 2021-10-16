@@ -4,13 +4,16 @@ from apps.usuarios.models import Medico, Paciente
 
 # Create your models here.
 
-
-
+estados =(
+    ('activa', 'activa'),
+    ('finalizada', 'finalizada')
+)
 class AtencionMedica(models.Model):
     fecha_atencion= models.DateTimeField(auto_now_add=True)
     descripcion = models.TextField(max_length=500)
-    paciente = models.IntegerField(null=True, blank=True)
+    medico= models.IntegerField(null=True, blank=True)
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
+    estado = models.CharField(max_length=80, choices=estados, default='activa')
     
 
 class Mensaje(models.Model):
