@@ -9,6 +9,7 @@ from apps.usuarios.models import Medico, Paciente
 class AtencionMedica(models.Model):
     fecha_atencion= models.DateTimeField(auto_now_add=True)
     descripcion = models.TextField(max_length=500)
+    paciente = models.IntegerField(null=True, blank=True)
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
     
 

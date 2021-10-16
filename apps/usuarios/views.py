@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from .forms import register_form, paciente_form, medico_form, login_form, buscar_form, register_grupo_form
+from apps.usuarios.forms import register_form, paciente_form, medico_form, login_form, buscar_form, register_grupo_form
 from .models import Paciente, GrupoFamiliar, Medico
 import random
 # Create your views here.
@@ -43,7 +43,7 @@ def registro_view(request):
             if check:
                 return redirect('/registro/selecionar/')
             else:
-                return redirect('/inicio/')
+                return redirect('/')
     else:
         form_u = register_form()
         form_p = paciente_form()

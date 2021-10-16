@@ -1,17 +1,37 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from apps.usuarios.models import GrupoFamiliar
-from .forms import *
+from apps.inicio.forms import *
 
 
 def inicio_view(request):
-    paciente= Paciente.objects.get(usuario=request.user.id)
-    
+
+    paciente= Paciente.objects.get(usuario=request.user.id)    
     atenciones = AtencionMedica.objects.filter(paciente= paciente) 
-    #paciente = Paciente.objects.get(usuario=usuario)
-    #medico = GrupoFamiliar.objects.get(paciente=paciente)
+
     return render(request,'inicio/inicio.html', locals())
+
+
+def atencion_agregar_view(request):
+    paciente = Paciente.objects.get(usuario=request.user.id)
+    if request.method == 'POST':
+        form_atencion = atencion_form(request.POST)
+        if form_atencion.is_valid():
+            a = form_atencion.save(commit=False)
+            a.paciente = paciente
+            a.save()
+            return redirect('/')
+    else:
+        form_atencion = atencion_form() 
+        return render(request, 'inicio/atencion_agregar.html', locals())    
+    return render(request, 'inicio/atencion_agregar.html', locals())    
+
+def  atencion_editar_view(request):
+    return render(request, 'inicio/atencion_editar.html', locals())
+
+def atencion_eliminar_view(request):
+    return render(request, 'inicio/atencion_eliminar.html', locals())
+
 
 def inicio_medico_view(request):
     
@@ -20,7 +40,11 @@ def inicio_medico_view(request):
 def cambiar_medico_view(request):
     return render(request,'inicio/cambiar_medico.html', locals())
 
-def historial_view(request):
+def historial_view(request, id_atencion):
+    atencion = AtencionMedica.objects.get(id=id_atencion)
+    """ paciente = User.objects.get(usuario=request.user.id)
+    atencion = AtencionMedica.objects.get(paciente=paciente)
+    mensajes = Mensaje.objects.filter(atencion=atencion) """
     return render(request,'inicio/historial.html', locals())
 
 def paciente_detalle_view(request, id_paciente):
