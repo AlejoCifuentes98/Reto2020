@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Mensajes | {% endblock title %}
+
+{% block content %}
+    <table>
+        <thead>
+            <th>Chat directo con el Medico</th>
+        </thead>
+        {% for m in mensaje %}
+            <tbody>
+                <th>
+                    {{m.nombre}}- {{m.hora}}<br>
+                    {{m.mensaje}}
+                </th>
+            </tbody>
+        {% endfor %}
+    </table>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form_m}}
+        <input type="submit" value="Enviar">
+    </form>
+    
+{% endblock content %}
+    
+    

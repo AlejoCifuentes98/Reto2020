@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+<div class="row">
+    <div class="col-8">
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Identificacion</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Teléfono</th>
+                <th>Dirección</th>
+              </tr>
+            </thead>
+            {% for obj in object%}
+                <tbody>
+                <tr>
+                    <td>{{obj.identificacion}}</td>
+                    <td>{{obj.nombres}}</td>
+                    <td>{{obj.apellidos}}</td>
+                    <td>{{obj.telefono}}</td>
+                    <td>{{obj.direccion}}</td>
+                </tr>
+                </tbody>
+            {% endfor %}
+          </table>
+    </div>
+    <div class="4">
+        <form action="" method="GET">
+            {% csrf_token %}
+            {{form_b}}
+            <input type="submit" value="Buscar">
+        </form>
+            {% if messages %}
+                {% for ms in messages %}
+                    <script>
+                        Swal.fire({
+                        "icon": 'error',
+                        "title": 'Fallos en la busqueda',
+                        "text": '{{ms}}',
+                        })
+                    </script>
+                {% endfor %}
+            {% else %}
+                <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Afiliado</div>
+                    <div class="card-body">
+                    <h5 class="card-title">{{buscar.nombres}} {{buscar.apellidos}}</h5>
+                    <h6 class="card-text">Identificacion:{{buscar.identificacion}}</h6>
+                    <!-- <button type="button" class="btn btn-light"><a href="{% url 'agregar_familia' id_afiliado=buscar.id %}">Agregar</a></button> -->
+                </div>
+            {% endif %}
+              
+    </div>
+</div>
+{% endblock content %}
+    
