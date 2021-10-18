@@ -51,4 +51,4 @@ class paciente_form(forms.ModelForm):
         model = Paciente
         field = '__all__'
         exclude = ['usuario']
-    check = forms.BooleanField(label="Crear grupo familiar", widget=forms.CheckboxInput)
+    

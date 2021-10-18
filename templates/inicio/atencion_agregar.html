@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form_atencion.as_p}}
+        <button class="btn btn-primary"  type="submit">Enviar diagnostico</button>
+        <a type="button" class="btn btn-primary"  href="{% url 'inicio'%}"> cancelar</a>
+    </form>
+{% endblock content %}

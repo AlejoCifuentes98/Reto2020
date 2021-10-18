@@ -3,18 +3,24 @@
 {% block content %}
 <div class="row">
     <div class="col">
+        <nav>
+            <a type="button" class="btn btn-Light border-info" href="{% url 'crear_familia' %}">Crear Grupo Familiar</a>
+        </nav>
         <div class="container">
             <h1> Información del paciente:</h1>
             <p><strong>Nombres:</strong> {{ paciente.nombres }}</p>
             <p><strong>Apellidos:</strong> {{ paciente.apellidos }}</p>
             <p><strong>Identificación:</strong> {{ paciente.identificacion }}</p>
             <p><strong>Telefono:</strong> {{ paciente.telefono }}</p>
-            <p><strong>Telefono:</strong> {{ paciente.direccion }}</p>
+            <p><strong>Dirección:</strong> {{ paciente.direcion }}</p>
             <p><strong>Correo electrónico:</strong> {{ paciente.usuario.username }}</p>
+            <hr>
+            <p><b>Medico de Cabecera:</b> {{medico.medico_cabecera}}</p>
             <div class="d-grid gap-2 d-md-block">
                 <a type="button" class="btn btn-primary" href="#">Reportes</a>
                 <a type="button" class="btn btn-primary" href="#">Documentos</a>
-                <a type="button" class="btn btn-primary" href="#">Cambiar medico</a>
+                <a type="button" class="btn btn-primary" href="{% url 'seleccionar_medico' %}">Cambiar medico</a>
+                <a type="button" class="btn btn-primary" href="{% url 'solicitar_atencion' %}">Solicitar atención</a>
             </div>
         </div>
 
@@ -46,7 +52,7 @@
                         <td>{{ i.descripcion }}</td>
                         <td>{{ i.descripcion }}</td>
                         <td> </td>
-                        <td><a typpe="button" class="btn btn-primary" href="{% url 'historial' id_atencion=i.id %}"></a></td>
+                        <td><a typpe="button" class="btn btn-primary" href="{% url 'historial' %}"></a></td>
 
 
                     </tr>

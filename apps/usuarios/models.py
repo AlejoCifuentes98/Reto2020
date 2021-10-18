@@ -15,7 +15,7 @@ class Medico(models.Model):
     usuario        = models.ForeignKey(User, on_delete=models.CASCADE)
     especialidad   = models.ForeignKey(Especialidad, on_delete=models.PROTECT)
     def __str__(self):
-        return self.nombres+''+self.apellidos
+        return self.nombres+' '+self.apellidos
 
     def nombre_completo(self):
         return self.nombres+' '+self.apellidos
@@ -38,7 +38,7 @@ class Paciente(models.Model):
 
 
 class GrupoFamiliar(models.Model):
-    titular = models.IntegerField()
+    titular = models.IntegerField(null=True, blank=True)
     paciente = models.ForeignKey(Paciente, on_delete=models.PROTECT)
     medico_cabecera = models.ForeignKey(Medico, on_delete=models.PROTECT)
 

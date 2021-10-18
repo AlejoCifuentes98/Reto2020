@@ -25,25 +25,23 @@ def login_view(request):
     return render(request,'usuario/login.html', locals())
 
 def registro_view(request):
-    #numero = Medico.objects.filter(especialidad = "General").count()
-    #n = random.randint(1,numero)
+    numero = Medico.objects.filter(especialidad__nombre = 'General').count()
+    n = random.randint(1,numero)
+    medico = Medico.objects.get(id = n)
     if request.method == 'POST':
         form_u = register_form(request.POST)
         form_p = paciente_form(request.POST)
         if form_u.is_valid() and form_p.is_valid():
             ema = form_u.cleaned_data['email']
             pas = form_u.cleaned_data['password2']
-            check = form_p.cleaned_data['check']
 
             u = User.objects.create_user(username=ema, password=pas)
             p=form_p.save(commit=False)
             u.save()
             p.usuario=u
             p.save()
-            if check:
-                return redirect('/registro/selecionar/')
-            else:
-                return redirect('/')
+            GrupoFamiliar.objects.create(paciente=p, medico_cabecera=medico)
+            return redirect('')
     else:
         form_u = register_form()
         form_p = paciente_form()
@@ -68,19 +66,14 @@ def registro_medico_view(request):
         form_m = medico_form()
     return render(request,'usuario/registro_medico.html', locals())
 
-
 def logout_view(request):
     logout(request)
     return redirect('/')
 
-def selecionar_view(request):
-    object = Medico.objects.filter(especialidad__nombre = "General")
-    return render(request,'usuario/seleccionar.html', locals())
-
-def crear_famillia_view(request, id_medico):
+def crear_famillia_view(request):
     usuario = Paciente.objects.get(usuario = request.user.id)
-    medico = Medico.objects.get(id = id_medico)
-    GrupoFamiliar.objects.create(titular=usuario.identificacion, paciente=usuario, medico_cabecera=medico)
+    grupo = GrupoFamiliar.objects.get(Paciente = usuario.id)
+    grupo.titular = usuario
     return redirect('/inicio/')
 
 def grupo_familiar_view(request):
@@ -91,7 +84,7 @@ def grupo_familiar_view(request):
         form_b = buscar_form(request.GET)
         if form_b.is_valid():
             num = form_b.cleaned_data['numero']
-            buscar = Paciente.objects.get(identificacion = num)
+            buscar = Paciente.objects.get(identificacion__icontains  = num)
             if buscar:
                 buscar
             else:
