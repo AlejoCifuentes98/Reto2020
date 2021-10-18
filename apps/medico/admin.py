@@ -1,6 +1,6 @@
 from django.contrib import admin
-from apps.inicio.models import *
-admin.site.register(AtencionMedica),
-admin.site.register(Mensaje),
+from .models import Remisiones, OrdenMedica
+# Register your models here.
+
 admin.site.register(OrdenMedica),
 admin.site.register(Remisiones),
