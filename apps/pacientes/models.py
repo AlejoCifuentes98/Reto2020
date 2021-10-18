@@ -1,13 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
-from apps.usuarios.models import Medico, Paciente
+from apps.usuarios.models import Medico, Paciente, GrupoFamiliar
 
 # Create your models here.
 
 class AtencionMedica(models.Model):
     fecha_atencion= models.DateTimeField(auto_now_add=True)
     descripcion = models.TextField(max_length=500)
-    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
+    grupo = models.ForeignKey(GrupoFamiliar, on_delete=models.CASCADE)
     
 
 class Mensaje(models.Model):

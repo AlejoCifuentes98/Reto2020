@@ -1,5 +1,5 @@
 from django.db import models
-from pacientes.models import AtencionMedica
+from apps.pacientes.models import AtencionMedica
 
 # Create your models here.
 

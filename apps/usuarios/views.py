@@ -17,7 +17,11 @@ def login_view(request):
             usuario = authenticate(username=ema, password=pas)
             if usuario is not None and usuario.is_active:
                 login(request, usuario)
-                return redirect('/inicio/')
+                if Paciente.objects.filter(usuario = request.user.id).exists():
+                    return redirect('/inicio/')
+                else:
+                    return redirect('/inicio/medico/')
+
             else:
                 messages.error(request, "Error en el Email o Contraseña")
     else:

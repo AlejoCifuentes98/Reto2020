@@ -9,26 +9,25 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('usuarios', '__first__'),
+        ('pacientes', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='AtencionMedica',
+            name='Remisiones',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('fecha_atencion', models.DateTimeField(auto_now_add=True)),
-                ('descripcion', models.TextField(max_length=500)),
-                ('grupo', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='usuarios.grupofamiliar')),
+                ('medico', models.CharField(max_length=50)),
+                ('descripción', models.TextField()),
+                ('atencion', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='pacientes.atencionmedica')),
             ],
         ),
         migrations.CreateModel(
-            name='Mensaje',
+            name='OrdenMedica',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('mensaje', models.TextField()),
-                ('hora', models.DateTimeField(auto_now_add=True)),
-                ('nombre', models.CharField(max_length=160)),
+                ('fecha', models.DateTimeField(auto_now_add=True)),
+                ('descripción', models.TextField(max_length=500)),
                 ('atencion', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='pacientes.atencionmedica')),
             ],
         ),

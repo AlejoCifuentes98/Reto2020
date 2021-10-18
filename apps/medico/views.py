@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from apps.usuarios.models import Paciente, Medico, GrupoFamiliar
+from apps.pacientes.models import AtencionMedica
 from .forms import  orden_form, remision_from
 from .models import OrdenMedica, Remisiones
 # Create your views here.
 
 def inicio_medico_view(request):
     medico = Medico.objects.get(usuario = request.user.id)
-    grupo  = GrupoFamiliar.objects.filter(medico_cabecera= medico.id)
+    atencion  = AtencionMedica.objects.filter(grupo__medico_cabecera= medico.id)
     return render(request,'medico/inicio_medico.html', locals())
 
 def paciente_detalle_view(request, id_paciente):

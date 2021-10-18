@@ -15,11 +15,12 @@ def inicio_view(request):
     
 def atencion_agregar_view(request):
     paciente = Paciente.objects.get(usuario=request.user.id)
+    grupo    = GrupoFamiliar.objects.get(paciente= paciente)
     if request.method == 'POST':
         form_atencion = atencion_form(request.POST)
         if form_atencion.is_valid():
             a = form_atencion.save(commit=False)
-            a.paciente = paciente
+            a.grupo = grupo
             a.save()
             return redirect('/inicio/')
     else:
