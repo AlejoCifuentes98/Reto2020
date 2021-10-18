@@ -35,7 +35,7 @@
                         <th scope="col">fecha y hora</th>
                         <th scope="col">Descripción de la atención</th>
                         <th scope="col">Medico</th>
-
+                        <th scope="col">Mensajes</th>
 
                         <th scope="col">Detalles</th>
                     </tr>
@@ -51,7 +51,7 @@
                         <th scope="row">{{ i.fecha_atencion }}</th>
                         <td>{{ i.descripcion }}</td>
                         <td>{{ i.descripcion }}</td>
-                        <td> </td>
+                        <td><a href="{% url 'mensaje' id_atencion=i.id %}"></a> </td>
                         <td><a typpe="button" class="btn btn-primary" href="{% url 'historial' %}"></a></td>
 
 
