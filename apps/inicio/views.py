@@ -53,9 +53,7 @@ def cambiar_medico_view(request):
 
 def historial_view(request, id_atencion):
     atencion = AtencionMedica.objects.get(id=id_atencion)
-    """ paciente = User.objects.get(usuario=request.user.id)
-    atencion = AtencionMedica.objects.get(paciente=paciente)
-    mensajes = Mensaje.objects.filter(atencion=atencion) """
+   
     return render(request,'inicio/historial.html', locals())
 
 def paciente_detalle_view(request, id_paciente):
