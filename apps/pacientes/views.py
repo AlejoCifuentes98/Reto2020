@@ -1,16 +1,12 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
-from django.contrib import messages
 from apps.usuarios.models import GrupoFamiliar
 from .forms import *
 
 
 def inicio_view(request):
     paciente= Paciente.objects.get(usuario=request.user.id)
-    
-    atenciones = AtencionMedica.objects.filter(paciente= paciente) 
-    #paciente = Paciente.objects.get(usuario=usuario)
-    medico = GrupoFamiliar.objects.get(paciente=paciente)
+    atenciones = AtencionMedica.objects.filter(grupo__paciente= paciente.id) 
+    medico = GrupoFamiliar.objects.get(paciente = paciente.id)
     return render(request,'inicio/inicio.html', locals())
     
 def atencion_agregar_view(request):
@@ -44,17 +40,18 @@ def historial_view(request):
     return render(request,'inicio/historial.html', locals())
 
 def mensajes_view(request, id_atencion):
-    if Paciente.objects.get(usuario = request.user.id):
+    if Paciente.objects.filter(usuario = request.user.id).exists():
         nombre = Paciente.objects.get(usuario = request.user.id)
     else:
-        nombre = Medico.objects.get(usuario=request.user.id).exists()
+        nom = Medico.objects.get(usuario=request.user.id)
+        nombre = "Doc. "+nom.nombre_completo()
     atencion = AtencionMedica.objects.get(id= id_atencion)
     mensaje = Mensaje.objects.filter(atencion=id_atencion)
     if request.method =='POST':
         form_m = mensaje_form(request.POST)
         if form_m.is_valid():
             m = form_m.save(commit=False)
-            m.nombre=nombre.nombres
+            m.nombre=nombre
             m.atencion=atencion
             m.save()
     else:

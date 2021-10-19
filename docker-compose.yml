@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  appp:
+    build: .
+    volumes:
+      - .:/django
+    ports:
+      - 8000:8000
+    image: app:django
+    container_name: django_container
+    command: python3 manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - db
+  db:
+    image: mysql
+    restart: always
+    volumes:
+      - ./data/db:/var/lib/mysql/data
+    environment:
+      MYSQL_DATABASE: nombre
+      MYSQL_USER: 
+      MYSQL_PASSWORD:
+      MYSQL_ROOT_PASSWORD:
+    ports:
+      - 33066:3306

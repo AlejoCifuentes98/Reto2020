@@ -1,6 +1,54 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+
+<div class="row mt-4">
+    <div class="col">
+        <h1>Historial de atenciones</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">fecha y hora</th>
+                        <th scope="col">Descripción de la atención</th>
+                        <th scope="col">Paciente</th>
+                        <th scope="col">Mensajes</th>
+
+                        <th scope="col">Opciones</th>
+                    </tr>
+                </thead>
+
+                {% if atencion %}
+                <tbody>
+
+
+                    {% for i in atencion %}
+
+                    <tr>
+                        <th scope="row">{{ i.fecha_atencion }}</th>
+                        <td>{{ i.descripcion }}</td>
+                        <td>{{ i.grupo.paciente }}</td>
+                        <td><a href="{% url 'mensaje' id_atencion=i.id %}">ver</a></td>
+                        <td><a typpe="button" class="btn btn-primary" href="{% url 'generar_orden' id_atencion=i.id %}">Generar Orden</a></td>
+
+
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+                {% else %}
+                <div class="row">
+                    <div class="col justify-content-center">
+                        <br>
+                        <br>
+                        <h3>No hay solicitudes medicas en el momento</h3>
+                    </div>
+                </div>
+                {% endif %}
+            </table>
+    </div>
+
+</div>
     
 {% endblock content %}
     

@@ -12,4 +12,4 @@ class orden_form(forms.ModelForm):
     class Meta:
         model = OrdenMedica
         field = '__all__'
-        exclude = ['medico']
+        exclude = ['atencion']

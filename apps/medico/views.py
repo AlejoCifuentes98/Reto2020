@@ -3,26 +3,48 @@ from apps.usuarios.models import Paciente, Medico, GrupoFamiliar
 from apps.pacientes.models import AtencionMedica
 from .forms import  orden_form, remision_from
 from .models import OrdenMedica, Remisiones
+from datetime import date, datetime
 # Create your views here.
 
 def inicio_medico_view(request):
     medico = Medico.objects.get(usuario = request.user.id)
     atencion  = AtencionMedica.objects.filter(grupo__medico_cabecera= medico.id)
+    paciente = GrupoFamiliar.objects.get(medico_cabecera = medico.id)
     return render(request,'medico/inicio_medico.html', locals())
 
 def paciente_detalle_view(request, id_paciente):
     paciente = Paciente.object.get(id = id_paciente)
 
-    return render(request,'inicio/paciente_detalle.html', locals())
+    return render(request,'medico/paciente_detalle.html', locals())
 
-def generar_orden_view(request):
+def atender_view(request, id_atencion):
+    atencion = AtencionMedica.objects.get(id= id_atencion)
+    orden    = OrdenMedica.objects.filter(atencion = atencion.id)
+    remision = Remisiones.objects.filter(atencion = atencion)
+    paciente = Paciente.objects.get(id = atencion.grupo.paciente)
+
+    fecha = paciente.fecha_nacimineto
+    fecha_date = datetime.strptime(fecha, '%Y-%m-%d').date()
+    diferencia = date.today() - fecha_date
+    diferencia = diferencia.days
+    edad = diferencia / 365.2425
+    edad = int(edad)
+
+
+    return render(request, 'medico/ordenes.html', locals())
+
+def generar_orden_view(request, id_atencion):
+    atencion = AtencionMedica.objects.get(id= id_atencion)
     if request.method == 'POST':
         form_o = orden_form(request.POST)
         if form_o.is_valid():
-            form_o.save()
+            o = form_o.save(commit=False)
+            o.atencion= atencion
+            o.save()
+            return redirect('/inicio/medico/')
     else:
         form_o = orden_form()
-    return render(request,'inicio/generar_orden.html', locals())
+    return render(request,'medico/generar_orden.html', locals())
 
 def editar_orden_view(request, id_orden):
     orden = OrdenMedica.object.get(id =id_orden)
@@ -33,12 +55,12 @@ def editar_orden_view(request, id_orden):
             return redirect()
     else:
         form_o = orden_form(instance=orden)
-    return render(request,'inicio/editar_orden.html', locals())
+    return render(request,'medico/editar_orden.html', locals())
 
 def eliminar_orden_view(request,id_orden):
     orden = OrdenMedica.object.get(id = id_orden)
     orden.delete()
-    return render(request,'inicio/eliminar_orden.html', locals())
+    return redirect ('')
 
 def remitir_paciente_view(request, id_atencion):
     if request.method == 'POST':
@@ -52,7 +74,7 @@ def remitir_paciente_view(request, id_atencion):
         form_r = remision_from()
 
 
-    return render(request,'inicio/remitir_paciente.html', locals())
+    return render(request,'medico/remitir_paciente.html', locals())
 
 def editar_remitir_view(request, id_remitir):
     remision = Remisiones.objects.get(id=id_remitir)
@@ -63,7 +85,7 @@ def editar_remitir_view(request, id_remitir):
             redirect("hih")
     else:
         form_r = remision_from(instance=remision)
-    return render(request,'inicio/editar_remision.html', locals())
+    return render(request,'medico/editar_remision.html', locals())
 
 def eliminar_remitir_view(request, id_remitir):
     remision = Remisiones.objects.get(id=id_remitir)

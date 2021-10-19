@@ -31,7 +31,7 @@ class Paciente(models.Model):
     fecha_nacimineto = models.DateField()
 
     def __str__(self):
-        return self.nombres+''+self.apellidos+''+str(self.identificacion)
+        return self.nombres+' '+self.apellidos
 
     def nombre_completo(self):
         return self.nombres+' '+self.apellidos

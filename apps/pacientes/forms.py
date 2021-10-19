@@ -7,7 +7,7 @@ class atencion_form(forms.ModelForm):
     class Meta:
         model = AtencionMedica
         fields= '__all__'
-        exclude = ['paciente']
+        exclude = ['grupo']
         
 class mensaje_form(forms.ModelForm):
     class Meta:

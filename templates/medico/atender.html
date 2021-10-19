@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Ordenes | {% endblock title %}
+{% block content %}
+<div class="row">
+    <div class="col-6">
+        <h1>Información del Paciente</h1>
+        <p><strong>Nombre: </strong>{{paciente}}</p>
+        <p><strong>Identificacion: </strong>{{paciente.identificacion}}</p>
+        <p><strong>Email: </strong>{{paciente.usuario.username}}</p>
+        <p><strong>Edad: </strong>{{edad}}</p>
+    </div>
+    <div class="col-6">
+        <table>
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{atencion.fecha}}</td>
+                    <td>{{atencio}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<h1>Ordenes medicas</h1>
+<table>
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<h1>Remiones</h1>
+<table>
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+{% endblock content %}

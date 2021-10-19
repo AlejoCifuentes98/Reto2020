@@ -45,7 +45,7 @@ def registro_view(request):
             p.usuario=u
             p.save()
             GrupoFamiliar.objects.create(paciente=p, medico_cabecera=medico)
-            return redirect('')
+            return redirect('/')
     else:
         form_u = register_form()
         form_p = paciente_form()
