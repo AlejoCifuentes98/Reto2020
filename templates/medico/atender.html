@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Ordenes | {% endblock title %}
+{% block title %}Atencion | {% endblock title %}
 {% block content %}
 <div class="row">
     <div class="col-6">
@@ -10,7 +10,7 @@
         <p><strong>Edad: </strong>{{edad}}</p>
     </div>
     <div class="col-6">
-        <table>
+        <table class='table'>
             <thead>
                 <tr>
                     <th>Fecha</th>
@@ -19,37 +19,57 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>{{atencion.fecha}}</td>
-                    <td>{{atencio}}</td>
+                    <td>{{atencion.fecha_atencion|date:'SHORT_DATETIME_FORMAT'}}</td>
+                    <td>{{atencion.descripcion}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+<a class="btn btn-light" type="button" href="{% url 'generar_orden' id_atencion=atencion.id %}" >Generar Orden</a>
+<a class="btn btn-light" type="button" href="{% url 'remitir_paciente' id_paciente=paciente.id %}" >Remitir</a>
+<a class="btn btn-light" type="button" href="{% url 'mensaje' id_atencion=atencion.id %}" >Ver chat</a>
 <h1>Ordenes medicas</h1>
-<table>
+<table class="table">
     <thead>
         <tr>
-            <th></th>
+            <th>Fecha</th>
+            <th>Descripción</th>
         </tr>
     </thead>
-    <tbody>
-        <tr>
-            <td></td>
-        </tr>
-    </tbody>
+    {% if orden %}
+        <tbody>
+            {% for o in orden%}
+                <tr>
+                    <td>{{ o.fecha }}</td>
+                    <td>{{ o.descripción }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    {% else %}
+        <h6>Hasta el momentono se ha generado una orden medica</h6>
+    {% endif %}
 </table>
 <h1>Remiones</h1>
-<table>
+<table class="table mx-4">
     <thead>
         <tr>
-            <th></th>
+            <th>Medico</th>
+            <th>Descripción</th>
         </tr>
     </thead>
-    <tbody>
-        <tr>
-            <td></td>
-        </tr>
-    </tbody>
+    {% if remision%}
+        <tbody>
+            {% for r in remision%}
+                <tr>
+                    <td>{{ r.fecha }}</td>
+                    <td>{{ r.descripción }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    {% else %}
+        <h6>Paciente no ha sido remitido</h6>
+    {% endif %}
+
 </table>
 {% endblock content %}

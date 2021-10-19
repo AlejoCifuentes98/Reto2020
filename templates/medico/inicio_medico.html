@@ -29,7 +29,7 @@
                         <td>{{ i.descripcion }}</td>
                         <td>{{ i.grupo.paciente }}</td>
                         <td><a href="{% url 'mensaje' id_atencion=i.id %}">ver</a></td>
-                        <td><a typpe="button" class="btn btn-primary" href="{% url 'generar_orden' id_atencion=i.id %}">Generar Orden</a></td>
+                        <td><a typpe="button" class="btn btn-primary" href="{% url 'atender' id_atencion=i.id %}">Generar Orden</a></td>
 
 
                     </tr>
