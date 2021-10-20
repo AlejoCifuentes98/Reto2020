@@ -1,9 +1,10 @@
 from django.urls import path
-from apps.inicio.views import inicio_view, inicio_medico_view, cambiar_medico_view, historial_view, mensajes_view, paciente_detalle_view, generar_orden_view, editar_orden_view,eliminar_orden_view, remitir_paciente_view, atencion_agregar_view, atencion_editar_view, atencion_eliminar_view
+from apps.inicio.views import inicio_view, inicio_paciente_view, inicio_medico_view, cambiar_medico_view, historial_view, mensajes_view, paciente_detalle_view, generar_orden_view, editar_orden_view,eliminar_orden_view, remitir_paciente_view, atencion_agregar_view, atencion_editar_view, atencion_eliminar_view
 
 urlpatterns = [
     #Home para pacientes y medicos
     path('',inicio_view, name='inicio'),
+    path('inicio/paciente',inicio_medico_view, name='inicio_paciente'),
     path('inicio/medico',inicio_medico_view, name='inicio_medico'),
     
     path('mensaje/',mensajes_view, name='mensaje'),

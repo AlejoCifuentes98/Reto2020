@@ -5,6 +5,9 @@ from apps.inicio.forms import *
 
 
 def inicio_view(request):
+    return render(request,'inicio/inicio.html', locals())
+
+def inicio_paciente_view(request):
 
     paciente= Paciente.objects.get(usuario=request.user.id)    
     atenciones = AtencionMedica.objects.filter(paciente= paciente) 
